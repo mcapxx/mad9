@@ -1,0 +1,70 @@
+{
+"name": "Fetch Github Details",
+"short_name": "API Fetch",
+"display": "standalone",
+"start_url": "/",
+"id": "/",
+"Orientation": "portrait_primary",
+"description": "Get user details from Github using it's API",
+"icons": [
+{
+"src": "assets/hp_logo.png",
+"type": "image/png",
+"sizes": "256x256"
+}
+],
+"background_color": "#AA0000",
+"theme_color": "#CC0000"
+}
+
+self.addEventListener("install", (e) => {
+console.log("installed");
+})
+self.addEventListener("activate", (e) => {
+console.log("activated");
+})
+self.addEventListener("fetch", (e) => {
+console.log("fetched");
+// fetching user data from the github api
+fetch("https://api.github.com/users/your_github_username")
+.then((e) => {
+return e.json();
+})
+.then((json) => {
+console.log(json);
+})
+.catch((e) => {
+console.log(e);
+});
+})
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+// linking the manifest file
+<link rel="manifest" href="manifest.json" />
+<link rel="stylesheet" href="index.css" />
+<link rel="icon" type="image/x-icon" href="assets/hp_logo.ico" />
+</head>
+<body>
+<center>
+<h2>Fetch From Github API</h2>
+</center>
+<script>
+// checking if service workers are supported by the browser
+if('serviceWorker' in navigator) {
+// registering the service worker
+navigator.serviceWorker.register("sw.js")
+.then((e) => {
+console.log("registered");
+});
+} else 
+{
+ console.log("browser does not support service worker");
+}
+</script>
+</body>
+</html>
